@@ -1,21 +1,16 @@
-import { Contract } from 'ethers'
-import { Web3Provider } from 'ethers/providers'
-import {
-  BigNumber,
-  bigNumberify,
-  getAddress,
-  keccak256,
-  defaultAbiCoder,
-  toUtf8Bytes,
-  solidityPack
-} from 'ethers/utils'
+import { ethers } from 'hardhat'
+import { BigNumber, Contract } from 'ethers'
 
+// cypress: 8217, baobab: 1001, harahat: 8545
+export const CHAIN_ID = 8545
+
+const { getAddress, keccak256, defaultAbiCoder, toUtf8Bytes, solidityPack } = ethers.utils
 const PERMIT_TYPEHASH = keccak256(
   toUtf8Bytes('Permit(address owner,address spender,uint256 value,uint256 nonce,uint256 deadline)')
 )
 
 export function expandTo18Decimals(n: number): BigNumber {
-  return bigNumberify(n).mul(bigNumberify(10).pow(18))
+  return BigNumber.from(n).mul(BigNumber.from(10).pow(18))
 }
 
 function getDomainSeparator(name: string, tokenAddress: string) {
@@ -26,8 +21,8 @@ function getDomainSeparator(name: string, tokenAddress: string) {
         keccak256(toUtf8Bytes('EIP712Domain(string name,string version,uint256 chainId,address verifyingContract)')),
         keccak256(toUtf8Bytes(name)),
         keccak256(toUtf8Bytes('1')),
-        1,
-        tokenAddress
+        CHAIN_ID,
+        tokenAddress,
       ]
     )
   )
@@ -43,9 +38,9 @@ export function getCreate2Address(
     '0xff',
     factoryAddress,
     keccak256(solidityPack(['address', 'address'], [token0, token1])),
-    keccak256(bytecode)
+    keccak256(bytecode),
   ]
-  const sanitizedInputs = `0x${create2Inputs.map(i => i.slice(2)).join('')}`
+  const sanitizedInputs = `0x${create2Inputs.map((i) => i.slice(2)).join('')}`
   return getAddress(`0x${keccak256(sanitizedInputs).slice(-40)}`)
 }
 
@@ -73,15 +68,15 @@ export async function getApprovalDigest(
             ['bytes32', 'address', 'address', 'uint256', 'uint256', 'uint256'],
             [PERMIT_TYPEHASH, approve.owner, approve.spender, approve.value, nonce, deadline]
           )
-        )
+        ),
       ]
     )
   )
 }
 
-export async function mineBlock(provider: Web3Provider, timestamp: number): Promise<void> {
+export async function mineBlock(timestamp: number): Promise<void> {
   await new Promise(async (resolve, reject) => {
-    ;(provider._web3Provider.sendAsync as any)(
+    ;(ethers.provider.send as any)(
       { jsonrpc: '2.0', method: 'evm_mine', params: [timestamp] },
       (error: any, result: any): void => {
         if (error) {
@@ -95,5 +90,8 @@ export async function mineBlock(provider: Web3Provider, timestamp: number): Prom
 }
 
 export function encodePrice(reserve0: BigNumber, reserve1: BigNumber) {
-  return [reserve1.mul(bigNumberify(2).pow(112)).div(reserve0), reserve0.mul(bigNumberify(2).pow(112)).div(reserve1)]
+  return [
+    reserve1.mul(BigNumber.from(2).pow(112)).div(reserve0),
+    reserve0.mul(BigNumber.from(2).pow(112)).div(reserve1),
+  ]
 }
