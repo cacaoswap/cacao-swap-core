@@ -1,11 +1,11 @@
 {
-  "name": "@pancakeswap-libs/pancake-swap-core",
-  "description": "🎛 Core contracts for the pancake protocol",
+  "name": "cacao-swap-core",
+  "description": "🎛 Core contracts for the cacaoswap protocol",
   "version": "0.1.0",
-  "homepage": "https://pancakeswap.finance",
+  "homepage": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pancakeswap/pancake-swap-core.git"
+    "url": "https://github.com/cacaoswap/cacao-swap-core.git"
   },
   "publishConfig": {
     "registry": "http://registry.npmjs.org"
@@ -18,18 +18,63 @@
     "node": ">=10"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.6",
-    "@types/mocha": "^5.2.7",
-    "chai": "^4.2.0",
-    "ethereum-waffle": "^2.4.1",
-    "ethereumjs-util": "^6.2.0",
-    "mocha": "^6.2.2",
-    "prettier": "^1.19.1",
-    "rimraf": "^3.0.0",
-    "solc": "0.5.16",
-    "truffle-plugin-verify": "^0.4.0",
-    "ts-node": "^8.5.4",
-    "typescript": "^3.7.3"
+    "@nomiclabs/hardhat-ethers": "^2.0.1",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "@typechain/ethers-v5": "^4.0.0",
+    "@types/chai": "^4.2.22",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.9.6",
+    "chai": "^4.3.4",
+    "dotenv": "^10.0.0",
+    "ethereum-waffle": "^3.4.0",
+    "ethers": "~5.0.32",
+    "hardhat": "2.4.3",
+    "hardhat-deploy": "0.8.11",
+    "hardhat-typechain": "^0.3.5",
+    "ts-generator": "^0.1.1",
+    "ts-node": "^10.2.1",
+    "typechain": "^4.0.0",
+    "typescript": "^4.4.3"
+  },
+  "resolutions": {
+    "ethers": "~5.0.32",
+    "@ethersproject/abi": "~5.0.0",
+    "@ethersproject/abstract-signer": "~5.0.0",
+    "@ethersproject/abstract-provider": "~5.0.0",
+    "@ethersproject/address": "~5.0.0",
+    "@ethersproject/asm": "~5.0.0",
+    "@ethersproject/base64": "~5.0.0",
+    "@ethersproject/basex": "~5.0.0",
+    "@ethersproject/bignumber": "~5.0.0",
+    "@ethersproject/bytes": "~5.0.0",
+    "@ethersproject/cli": "~5.0.0",
+    "@ethersproject/constants": "~5.0.0",
+    "@ethersproject/contracts": "~5.0.0",
+    "@ethersproject/experimental": "~5.0.0",
+    "@ethersproject/hardware-wallets": "~5.0.0",
+    "@ethersproject/hash": "~5.0.0",
+    "@ethersproject/hdnode": "~5.0.0",
+    "@ethersproject/json-wallets": "~5.0.0",
+    "@ethersproject/keccak256": "~5.0.0",
+    "@ethersproject/logger": "~5.0.0",
+    "@ethersproject/networks": "~5.0.0",
+    "@ethersproject/pbkdf2": "~5.0.0",
+    "@ethersproject/properties": "~5.0.0",
+    "@ethersproject/providers": "~5.0.0",
+    "@ethersproject/random": "~5.0.0",
+    "@ethersproject/rlp": "~5.0.0",
+    "@ethersproject/sha2": "~5.0.0",
+    "@ethersproject/shims": "~5.0.0",
+    "@ethersproject/signing-key": "~5.0.0",
+    "@ethersproject/solidity": "~5.0.0",
+    "@ethersproject/strings": "~5.0.0",
+    "@ethersproject/testcases": "~5.0.0",
+    "@ethersproject/tests": "~5.0.0",
+    "@ethersproject/transactions": "~5.0.0",
+    "@ethersproject/units": "~5.0.0",
+    "@ethersproject/wallet": "~5.0.0",
+    "@ethersproject/web": "~5.0.0",
+    "@ethersproject/wordlists": "~5.0.0"
   },
   "scripts": {
     "lint": "yarn prettier ./test/*.ts --check",
@@ -41,10 +86,5 @@
     "test": "mocha",
     "prepublishOnly": "yarn test"
   },
-  "license": "GPL-3.0-or-later",
-  "dependencies": {
-    "truffle-hdwallet-provider": "^1.0.17",
-    "truffle": "^5.1.41",
-    "truffle-flattener": "^1.4.4"
-  }
+  "license": "GPL-3.0-or-later"
 }
